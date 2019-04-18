@@ -18,11 +18,11 @@ void merger(
      bool validA,
      CandidateMatch inB,
      bool validB,
-     CandidateMatch out,
-     bool vout,
+     //CandidateMatch out,
+     //bool vout,
      bool inread,
-     CandidateMatch * outnext,
-     bool * voutnext,
+     CandidateMatch * out,
+     bool * vout,
      bool * readA,
      bool * readB
 ){
@@ -35,21 +35,23 @@ void merger(
     // internal variables
     static CandidateMatch A = CandidateMatch();
     static CandidateMatch B = CandidateMatch();
+    static CandidateMatch o = CandidateMatch();
+    static bool vo = false;
     static bool vA = false;
     static bool vB = false;
     static bool sA = false;
     static bool sB = false; 
 
     // Set read enables for A and B
-    *readA = (((inread || !vout) && sA) || !vA) && validA;
-    *readB = (((inread || !vout) && sB) || !vB) && validB;
+    *readA = (((inread || !*vout) && sA) || !vA) && validA;
+    *readB = (((inread || !*vout) && sB) || !vB) && validB;
 
     // Setup state machine
     static enum {HOLD, PROC_A, PROC_B, START, DONE} state;
-    if (sA && (inread || !vout))                          state = PROC_A;
-    else if (sB && (inread || !vout))                     state = PROC_B; 
-    else if ((!sA && !sB) && (validA || validB) && !vout) state = START;
-    else if (!sB && !sA && vout && inread)                state = DONE;              
+    if (sA && (inread || !*vout))                          state = PROC_A;
+    else if (sB && (inread || !*vout))                     state = PROC_B; 
+    else if ((!sA && !sB) && (validA || validB) && !*vout) state = START;
+    else if (!sB && !sA && *vout && inread)                state = DONE;              
     else                                                  state = HOLD; 
 
     //------------- Explanation of the states -------------
@@ -68,34 +70,34 @@ void merger(
     switch(state)
     {
     case PROC_A: // just readA and compare inA with pipelined B
-        *outnext  = A;      // output is A
-        *voutnext = vA;     // output valid is vA
+        o  = A;      // output is A
+        vo = vA;     // output valid is vA
     	A  = inA;    // pipeline inA
     	vA = validA; // pipeline inA valid
         sA = ((inA.getProjIndex() <= B.getProjIndex()) || !vB) && validA;  // sA=true if inA is valid and (inA <= B or B not valid)
     	sB = (!(inA.getProjIndex() <= B.getProjIndex()) || !validA) && vB; // sB=true if B is valid and (inA > B or inA not valid)
         break;
     case PROC_B: // just readB and compare inB with pipelined A
-        *outnext  = B;      // output is B
-    	*voutnext = vB;     // output valid is vB
+        o  = B;      // output is B
+    	vo = vB;     // output valid is vB
     	B  = inB;    // pipeline inB
     	vB = validB; // pipeline inB valid
         sA = ((A.getProjIndex() <= inB.getProjIndex()) || !validB) && vA;  // sA=true if A is valid and (A <= inB or inB not valid) 
         sB = (!(A.getProjIndex() <= inB.getProjIndex()) || !vA) && validB; // sB=true if inB is valid and (A > inB or A not valid)
         break;
     case START: // both in at same time
-        *outnext  = CandidateMatch();
-    	*voutnext = false;
-    	A    = inA;    // pipeline inA
-    	vA   = validA; // pipeline inA valid
-    	B    = inB;    // pipeline inB
-    	vB   = validB; // pipeline inB valid
-        sA   = ((inA.getProjIndex() <= inB.getProjIndex()) || !validB) && validA;  // sA=true if inA is valid and (inA <= inB or inB not valid)
-        sB   = (!(inA.getProjIndex() <= inB.getProjIndex()) || !validA) && validB; // sB=true if inB is valid and (inA > inB or inA not valid)
+        o  = CandidateMatch();
+    	vo = false;
+    	A  = inA;    // pipeline inA
+    	vA = validA; // pipeline inA valid
+    	B  = inB;    // pipeline inB
+    	vB = validB; // pipeline inB valid
+        sA = ((inA.getProjIndex() <= inB.getProjIndex()) || !validB) && validA;  // sA=true if inA is valid and (inA <= inB or inB not valid)
+        sB = (!(inA.getProjIndex() <= inB.getProjIndex()) || !validA) && validB; // sB=true if inB is valid and (inA > inB or inA not valid)
         break;
     case DONE: // set everything to false 
-        *outnext  = CandidateMatch();
-        *voutnext = false;
+        o  = CandidateMatch();
+        vo = false;
         A  = CandidateMatch();
         vA = false;
         B  = CandidateMatch();
@@ -103,16 +105,19 @@ void merger(
         sA = false;
         sB = false;
         break;
-    case HOLD: // pipeline all 
-        *outnext  = out;
-        *voutnext = vout;
+    case HOLD: // pipeline all
+    //    *outnext  = out;
+    //    *voutnext = vout;
         break;
     }
+
+    *out  = o;
+    *vout = vo; 
 
   //std::cout << "Layer: " << layer << " " << part << " , state: " << state << std::endl;
   //std::cout << "---Reads: (A,B,vout,inread) " << readA << " " << readB << " " << vout << " " << inread << std::endl; 
   //std::cout << "---In: " << inA.raw() << " " << validA << " " << inB.raw() << " " << validB << std::endl;
-  //std::cout << "---Out: " << out.raw() << " " << *voutnext << std::endl;
+  //std::cout << "---Out: " << out->raw() << " " << *vout << std::endl;
 
 }
 
@@ -460,59 +465,79 @@ void MatchCalculator(BXType bx,
     // merger Layer 1 Part 1
     merger<1,1>(
       cm1, valid1, cm2, valid2,         // inputs: inA, validA, inB, validB
-      cm_L1_1, valid_L1_1, read_L1_1,   // inputs: out, vout, inread from L2_1
-      &cm_L1_1_next, &valid_L1_1_next,  // outputs: out, vout
+      //cm_L1_1, valid_L1_1, read_L1_1,   // inputs: out, vout, inread from L2_1
+      //&cm_L1_1_next, &valid_L1_1_next,  // outputs: out, vout
+      read_L1_1,
+      &cm_L1_1, &valid_L1_1,  // outputs: out, vout
       &read1_next, &read2_next          // outputs: read1, read2 
     );
 
     // merger Layer 1 Part 2
     merger<1,2>(
       cm3, valid3, cm4, valid4,         // inputs: inA, validA, inB, validB
-      cm_L1_2, valid_L1_2, read_L1_2,   // inputs: out, vout, inread from L2_1
-      &cm_L1_2_next, &valid_L1_2_next,  // outputs: out, vout
+      //cm_L1_2, valid_L1_2, read_L1_2,   // inputs: out, vout, inread from L2_1
+      //&cm_L1_2_next, &valid_L1_2_next,  // outputs: out, vout
+      read_L1_2,   // inputs: out, vout, inread from L2_1
+      &cm_L1_2, &valid_L1_2,  // outputs: out, vout
       &read3_next, &read4_next          // outputs: read3, read4 
     );
 
     // merger Layer 1 Part 3 
     merger<1,3>(
       cm5, valid5, cm6, valid6,         // inputs: inA, validA, inB, validB
-      cm_L1_3, valid_L1_3, read_L1_3,   // inputs: out, vout, inread from L2_1
-      &cm_L1_3_next, &valid_L1_3_next,  // outputs: out, vout
+      //cm_L1_3, valid_L1_3, read_L1_3,   // inputs: out, vout, inread from L2_1
+      //&cm_L1_3_next, &valid_L1_3_next,  // outputs: out, vout
+      read_L1_3,   // inputs: out, vout, inread from L2_1
+      &cm_L1_3, &valid_L1_3,  // outputs: out, vout
       &read5_next, &read6_next          // outputs: read5, read6 
     );
 
     // merger Layer 1 Part 4  
     merger<1,4>(
       cm7, valid7, cm8, valid8,         // inputs: inA, validA, inB, validB
-      cm_L1_4, valid_L1_4, read_L1_4,   // inputs: out, vout, inread from L2_1
-      &cm_L1_4_next, &valid_L1_4_next,  // outputs: out, vout
+      //cm_L1_4, valid_L1_4, read_L1_4,   // inputs: out, vout, inread from L2_1
+      //&cm_L1_4_next, &valid_L1_4_next,  // outputs: out, vout
+      read_L1_4,   // inputs: out, vout, inread from L2_1
+      &cm_L1_4, &valid_L1_4,  // outputs: out, vout
       &read7_next, &read8_next          // outputs: read7, read8 
     );
 
     // merger Layer 2 Part 1
     merger<2,1>(
-      cm_L1_1_next, valid_L1_1_next,    // inputs: inA, validA
-      cm_L1_2_next, valid_L1_2_next,    // inputs: inB, validB
-      cm_L2_1, valid_L2_1, read_L2_1,   // inputs: out, vout, inread from L3_1
-      &cm_L2_1_next, &valid_L2_1_next,  // outputs: out, vout
+      //cm_L1_1_next, valid_L1_1_next,    // inputs: inA, validA
+      //cm_L1_2_next, valid_L1_2_next,    // inputs: inB, validB
+      //cm_L2_1, valid_L2_1, read_L2_1,   // inputs: out, vout, inread from L3_1
+      //&cm_L2_1_next, &valid_L2_1_next,  // outputs: out, vout
+      cm_L1_1, valid_L1_1,    // inputs: inA, validA
+      cm_L1_2, valid_L1_2,    // inputs: inB, validB
+      read_L2_1,   // inputs: out, vout, inread from L3_1
+      &cm_L2_1, &valid_L2_1,  // outputs: out, vout
       &read_L1_1_next, &read_L1_2_next  // outputs: read_L1_1, read_L1_2
     );
 
     // merger Layer 2 Part 2
     merger<2,2>(
-      cm_L1_3_next, valid_L1_3_next,    // inputs: inA, validA 
-      cm_L1_4_next, valid_L1_4_next,    // inputs: inB, validB
-      cm_L2_2, valid_L2_2, read_L2_2,   // inputs: out, vout, inread from L3_1
-      &cm_L2_2_next, &valid_L2_2_next,  // outputs: out, vout
+      //cm_L1_3_next, valid_L1_3_next,    // inputs: inA, validA 
+      //cm_L1_4_next, valid_L1_4_next,    // inputs: inB, validB
+      //cm_L2_2, valid_L2_2, read_L2_2,   // inputs: out, vout, inread from L3_1
+      //&cm_L2_2_next, &valid_L2_2_next,  // outputs: out, vout
+      cm_L1_3, valid_L1_3,    // inputs: inA, validA 
+      cm_L1_4, valid_L1_4,    // inputs: inB, validB
+      read_L2_2,   // inputs: out, vout, inread from L3_1
+      &cm_L2_2, &valid_L2_2,  // outputs: out, vout
       &read_L1_3_next, &read_L1_4_next  // outputs: read_L1_3, read_L1_4
     );
 
     // merger Layer 3 Part 1
     merger<3,1>(
-      cm_L2_1_next, valid_L2_1_next,      // inputs: inA, validA 
-      cm_L2_2_next, valid_L2_2_next,      // inputs: inB, validB
-      datastream, valid_L3, true,         // inputs: out, vout, true inread because last layer
-      &cm_L3_next, &valid_L3_next,        // outputs: out, vout
+      //cm_L2_1_next, valid_L2_1_next,      // inputs: inA, validA 
+      //cm_L2_2_next, valid_L2_2_next,      // inputs: inB, validB
+      //datastream, valid_L3, true,         // inputs: out, vout, true inread because last layer
+      //&cm_L3_next, &valid_L3_next,        // outputs: out, vout
+      cm_L2_1, valid_L2_1,      // inputs: inA, validA 
+      cm_L2_2, valid_L2_2,      // inputs: inB, validB
+      true,         // inputs: out, vout, true inread because last layer
+      &datastream, &valid_L3,        // outputs: out, vout
       &read_L2_1_next, &read_L2_2_next    // outputs: read_L2_1, read_L2_2
     );
 
@@ -535,21 +560,21 @@ void MatchCalculator(BXType bx,
     read_L2_1  = read_L2_1_next;
     read_L2_2  = read_L2_2_next;
 
-    cm_L1_1    = cm_L1_1_next;
-    cm_L1_2    = cm_L1_2_next;
-    cm_L1_3    = cm_L1_3_next;
-    cm_L1_4    = cm_L1_4_next;
-    cm_L2_1    = cm_L2_1_next;
-    cm_L2_2    = cm_L2_2_next;
-    datastream = cm_L3_next;
+    //cm_L1_1    = cm_L1_1_next;
+    //cm_L1_2    = cm_L1_2_next;
+    //cm_L1_3    = cm_L1_3_next;
+    //cm_L1_4    = cm_L1_4_next;
+    //cm_L2_1    = cm_L2_1_next;
+    //cm_L2_2    = cm_L2_2_next;
+    //datastream = cm_L3_next;
 
-    valid_L1_1 = valid_L1_1_next;
-    valid_L1_2 = valid_L1_2_next;
-    valid_L1_3 = valid_L1_3_next;
-    valid_L1_4 = valid_L1_4_next;
-    valid_L2_1 = valid_L2_1_next;
-    valid_L2_2 = valid_L2_2_next;
-    valid_L3   = valid_L3_next;
+    //valid_L1_1 = valid_L1_1_next;
+    //valid_L1_2 = valid_L1_2_next;
+    //valid_L1_3 = valid_L1_3_next;
+    //valid_L1_4 = valid_L1_4_next;
+    //valid_L2_1 = valid_L2_1_next;
+    //valid_L2_2 = valid_L2_2_next;
+    //valid_L3   = valid_L3_next;
 
     //-----------------------------------------------------------------------------------------------------------
     //-------------------------------------- MATCH CALCULATION STEPS --------------------------------------------
