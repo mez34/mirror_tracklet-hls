@@ -12,7 +12,7 @@
 #include <iterator>
 
 
-const int nevents = 10; // number of events to run
+const int nevents = 100; // number of events to run
 bool truncation = true; // compare results to truncated emulation
 
 using namespace std;
@@ -86,7 +86,7 @@ int main() {
 
   // loop over events
   for (int ievt = 0; ievt < nevents; ++ievt) {
-    cout << "Event: " << dec << ievt << endl;
+    //cout << "Event: " << dec << ievt << endl;
 
     // make memories from the input text files
     writeMemFromFile<AllStubMemory<BARRELPS> >(allstub, fin_as, ievt);
@@ -111,11 +111,11 @@ int main() {
     );
 
     // compare the computed outputs with the expected ones 
-    std::cout << "FM: L1L2 seeding" << std::endl;
+    //std::cout << "FM: L1L2 seeding" << std::endl;
     err_count += compareMemWithFile<FullMatchMemory<BARREL> >(fullmatch1, fout_fm1, ievt, "FullMatch", truncation);
     //std::cout << "FM: L3L4 seeding" << std::endl;
     //err_count += compareMemWithFile<FullMatchMemory<BARREL> >(fullmatch2, fout_fm2, ievt, "FullMatch", truncation);
-    std::cout << "FM: L5L6 seeding" << std::endl;
+    //std::cout << "FM: L5L6 seeding" << std::endl;
     err_count += compareMemWithFile<FullMatchMemory<BARREL> >(fullmatch3, fout_fm3, ievt, "FullMatch", truncation);
     //std::cout << "FM: D1D2 seeding" << std::endl;
     //err_count += compareMemWithFile<FullMatchMemory<BARREL> >(fullmatch4, fout_fm4, ievt, "FullMatch", truncation);
