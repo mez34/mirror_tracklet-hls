@@ -3,7 +3,7 @@
 
 #include "MatchEngine.h"
 
-void MatchEngineTopL4(const ap_uint<3> bx,
+void MatchEngineTopL4(const BXType bx,
 		      const VMStubMEMemory<BARREL2S>* const instubdata,
 		      const VMProjectionMemory<BARREL>* const inprojdata,
 		      CandidateMatchMemory* const outcandmatch);
