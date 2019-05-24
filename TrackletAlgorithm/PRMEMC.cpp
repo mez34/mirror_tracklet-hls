@@ -1,0 +1,1620 @@
+#include "PRMEMC.h"
+
+void PRMEMC(
+BXType bx,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L1L2E_L3PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L4PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L4PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L4PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L5PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L5PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L6PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2E_L6PHIC,
+const AllStubMemory<BARREL2S>& AS_L6PHIBn4,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2C_L6PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L6PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2F_L6PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4C_L6PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2B_L6PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2B_L6PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC20n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2C_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L6PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB15n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2F_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2J_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4C_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2H_L4PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4E_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2C_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L6PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB16n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L5L6A_L4PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2F_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2G_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2H_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2I_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2J_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2K_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2L_L6PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA2n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4B_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4C_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4D_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4E_L6PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB11n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4F_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L5L6C_L4PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4G_L6PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4H_L6PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC24n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB12n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA7n1,
+const AllStubMemory<BARREL2S>& AS_L5PHIAn2,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L1L2F_L3PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4D_L6PHIA,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB13n1,
+const AllStubMemory<BARREL2S>& AS_L5PHIBn3,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2G_L4PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA8n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA3n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA4n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA5n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA5n1,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB9n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2I_L4PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA6n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC21n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA7n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB16n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA8n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB9n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA1n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB10n1,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L1L2G_L3PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB11n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB12n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB12n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA1n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB13n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA2n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB14n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2G_L6PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB15n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L4PHIA,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIB16n1,
+const AllStubMemory<BARREL2S>& AS_L4PHIAn3,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC17n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L5L6C_L4PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC18n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC19n1,
+const AllStubMemory<BARRELPS>& AS_L3PHIBn4,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC20n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2I_L6PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC21n1,
+const AllStubMemory<BARREL2S>& AS_L4PHIBn5,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2J_L4PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L5L6A_L4PHIA,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC22n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB13n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC23n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA8n1,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB14n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIC24n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2B_L4PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4B_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2C_L4PHIB,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB15n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC18n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB9n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA4n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4D_L6PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA5n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2H_L5PHIB,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB10n1,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB16n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA2n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC22n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2G_L4PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC17n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4F_L6PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2F_L4PHIC,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L5L6B_L3PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2H_L4PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2K_L4PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC18n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L5L6B_L4PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA3n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L5L6D_L4PHIC,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC17n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB13n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC20n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2B_L5PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2C_L5PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L5PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2B_L5PHIB,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L1L2C_L3PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC19n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L5PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB14n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4D_L5PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4E_L5PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2F_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2G_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2H_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2I_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4B_L5PHIA,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC22n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2J_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2K_L5PHIC,
+const AllStubMemory<BARREL2S>& AS_L4PHICn5,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2L_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4D_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4E_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4F_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4C_L5PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4G_L5PHIC,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2B_L4PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4C_L5PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2C_L4PHIA,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2F_L4PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L5L6B_L4PHIB,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L1L2B_L3PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA3n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC23n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2D_L4PHIB,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB11n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA6n1,
+const AllStubMemory<BARREL2S>& AS_L5PHICn3,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L1L2D_L3PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB10n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA4n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB9n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB14n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2F_L5PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2G_L5PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB15n1,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L5L6A_L3PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC21n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4B_L5PHIB,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2C_L5PHIB,
+const AllStubMemory<BARREL2S>& AS_L6PHICn4,
+const TrackletProjectionMemory<BARRELPS>& TPROJ_L5L6C_L3PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC23n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L3L4B_L6PHIA,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIB11n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIA6n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L6PHIA1n1,
+const VMStubMEMemory<BARRELPS>& VMSME_L3PHIB12n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIB10n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIC24n1,
+const TrackletProjectionMemory<BARREL2S>& TPROJ_L1L2H_L6PHIB,
+const VMStubMEMemory<BARREL2S>& VMSME_L5PHIC19n1,
+const VMStubMEMemory<BARREL2S>& VMSME_L4PHIA7n1,
+const AllStubMemory<BARREL2S>& AS_L6PHIAn3,
+BXType& bx_o,
+FullMatchMemory<BARREL>& FM_L3L4_L5PHIB,
+FullMatchMemory<BARREL>& FM_L5L6_L4PHIB,
+FullMatchMemory<BARREL>& FM_L3L4_L5PHIC,
+FullMatchMemory<BARREL>& FM_L1L2_L4PHIC,
+FullMatchMemory<BARREL>& FM_L3L4_L6PHIA,
+FullMatchMemory<BARREL>& FM_L5L6_L4PHIC,
+FullMatchMemory<BARREL>& FM_L3L4_L6PHIB,
+FullMatchMemory<BARREL>& FM_L3L4_L6PHIC,
+FullMatchMemory<BARREL>& FM_L1L2_L6PHIA,
+FullMatchMemory<BARREL>& FM_L1L2_L6PHIB,
+FullMatchMemory<BARREL>& FM_L1L2_L6PHIC,
+FullMatchMemory<BARREL>& FM_L1L2_L5PHIB,
+FullMatchMemory<BARREL>& FM_L3L4_L5PHIA,
+FullMatchMemory<BARREL>& FM_L5L6_L3PHIB,
+FullMatchMemory<BARREL>& FM_L1L2_L5PHIC,
+FullMatchMemory<BARREL>& FM_L1L2_L5PHIA,
+FullMatchMemory<BARREL>& FM_L5L6_L4PHIA,
+FullMatchMemory<BARREL>& FM_L1L2_L3PHIB,
+FullMatchMemory<BARREL>& FM_L1L2_L4PHIA,
+FullMatchMemory<BARREL>& FM_L1L2_L4PHIB
+
+){
+
+#pragma HLS dataflow
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB9;
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB10;
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB11;
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB12;
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB13;
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB14;
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB15;
+
+static VMProjectionMemory<BARREL> VMPROJ_L3PHIB16;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA1;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA2;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA3;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA4;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA5;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA6;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA7;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIA8;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB9;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB10;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB11;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB12;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB13;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB14;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB15;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIB16;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC17;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC18;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC19;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC20;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC21;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC22;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC23;
+
+static VMProjectionMemory<BARREL> VMPROJ_L4PHIC24;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA1;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA2;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA3;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA4;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA5;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA6;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA7;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIA8;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB9;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB10;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB11;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB12;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB13;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB14;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB15;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIB16;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC17;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC18;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC19;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC20;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC21;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC22;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC23;
+
+static VMProjectionMemory<BARREL> VMPROJ_L5PHIC24;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA1;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA2;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA3;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA4;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA5;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA6;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA7;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIA8;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB9;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB10;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB11;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB12;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB13;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB14;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB15;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIB16;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC17;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC18;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC19;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC20;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC21;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC22;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC23;
+
+static VMProjectionMemory<BARREL> VMPROJ_L6PHIC24;
+
+static CandidateMatchMemory CM_L3PHIB9;
+
+static CandidateMatchMemory CM_L3PHIB10;
+
+static CandidateMatchMemory CM_L3PHIB11;
+
+static CandidateMatchMemory CM_L3PHIB12;
+
+static CandidateMatchMemory CM_L3PHIB13;
+
+static CandidateMatchMemory CM_L3PHIB14;
+
+static CandidateMatchMemory CM_L3PHIB15;
+
+static CandidateMatchMemory CM_L3PHIB16;
+
+static AllProjectionMemory<BARRELPS> AP_L3PHIB;
+
+static CandidateMatchMemory CM_L4PHIA1;
+
+static CandidateMatchMemory CM_L4PHIA2;
+
+static CandidateMatchMemory CM_L4PHIA3;
+
+static CandidateMatchMemory CM_L4PHIA4;
+
+static CandidateMatchMemory CM_L4PHIA5;
+
+static CandidateMatchMemory CM_L4PHIA6;
+
+static CandidateMatchMemory CM_L4PHIA7;
+
+static CandidateMatchMemory CM_L4PHIA8;
+
+static AllProjectionMemory<BARREL2S> AP_L4PHIA;
+
+static CandidateMatchMemory CM_L4PHIB9;
+
+static CandidateMatchMemory CM_L4PHIB10;
+
+static CandidateMatchMemory CM_L4PHIB11;
+
+static CandidateMatchMemory CM_L4PHIB12;
+
+static CandidateMatchMemory CM_L4PHIB13;
+
+static CandidateMatchMemory CM_L4PHIB14;
+
+static CandidateMatchMemory CM_L4PHIB15;
+
+static CandidateMatchMemory CM_L4PHIB16;
+
+static AllProjectionMemory<BARREL2S> AP_L4PHIB;
+
+static CandidateMatchMemory CM_L4PHIC17;
+
+static CandidateMatchMemory CM_L4PHIC18;
+
+static CandidateMatchMemory CM_L4PHIC19;
+
+static CandidateMatchMemory CM_L4PHIC20;
+
+static CandidateMatchMemory CM_L4PHIC21;
+
+static CandidateMatchMemory CM_L4PHIC22;
+
+static CandidateMatchMemory CM_L4PHIC23;
+
+static CandidateMatchMemory CM_L4PHIC24;
+
+static AllProjectionMemory<BARREL2S> AP_L4PHIC;
+
+static CandidateMatchMemory CM_L5PHIA1;
+
+static CandidateMatchMemory CM_L5PHIA2;
+
+static CandidateMatchMemory CM_L5PHIA3;
+
+static CandidateMatchMemory CM_L5PHIA4;
+
+static CandidateMatchMemory CM_L5PHIA5;
+
+static CandidateMatchMemory CM_L5PHIA6;
+
+static CandidateMatchMemory CM_L5PHIA7;
+
+static CandidateMatchMemory CM_L5PHIA8;
+
+static AllProjectionMemory<BARREL2S> AP_L5PHIA;
+
+static CandidateMatchMemory CM_L5PHIB9;
+
+static CandidateMatchMemory CM_L5PHIB10;
+
+static CandidateMatchMemory CM_L5PHIB11;
+
+static CandidateMatchMemory CM_L5PHIB12;
+
+static CandidateMatchMemory CM_L5PHIB13;
+
+static CandidateMatchMemory CM_L5PHIB14;
+
+static CandidateMatchMemory CM_L5PHIB15;
+
+static CandidateMatchMemory CM_L5PHIB16;
+
+static AllProjectionMemory<BARREL2S> AP_L5PHIB;
+
+static CandidateMatchMemory CM_L5PHIC17;
+
+static CandidateMatchMemory CM_L5PHIC18;
+
+static CandidateMatchMemory CM_L5PHIC19;
+
+static CandidateMatchMemory CM_L5PHIC20;
+
+static CandidateMatchMemory CM_L5PHIC21;
+
+static CandidateMatchMemory CM_L5PHIC22;
+
+static CandidateMatchMemory CM_L5PHIC23;
+
+static CandidateMatchMemory CM_L5PHIC24;
+
+static AllProjectionMemory<BARREL2S> AP_L5PHIC;
+
+static CandidateMatchMemory CM_L6PHIA1;
+
+static CandidateMatchMemory CM_L6PHIA2;
+
+static CandidateMatchMemory CM_L6PHIA3;
+
+static CandidateMatchMemory CM_L6PHIA4;
+
+static CandidateMatchMemory CM_L6PHIA5;
+
+static CandidateMatchMemory CM_L6PHIA6;
+
+static CandidateMatchMemory CM_L6PHIA7;
+
+static CandidateMatchMemory CM_L6PHIA8;
+
+static AllProjectionMemory<BARREL2S> AP_L6PHIA;
+
+static CandidateMatchMemory CM_L6PHIB9;
+
+static CandidateMatchMemory CM_L6PHIB10;
+
+static CandidateMatchMemory CM_L6PHIB11;
+
+static CandidateMatchMemory CM_L6PHIB12;
+
+static CandidateMatchMemory CM_L6PHIB13;
+
+static CandidateMatchMemory CM_L6PHIB14;
+
+static CandidateMatchMemory CM_L6PHIB15;
+
+static CandidateMatchMemory CM_L6PHIB16;
+
+static AllProjectionMemory<BARREL2S> AP_L6PHIB;
+
+static CandidateMatchMemory CM_L6PHIC17;
+
+static CandidateMatchMemory CM_L6PHIC18;
+
+static CandidateMatchMemory CM_L6PHIC19;
+
+static CandidateMatchMemory CM_L6PHIC20;
+
+static CandidateMatchMemory CM_L6PHIC21;
+
+static CandidateMatchMemory CM_L6PHIC22;
+
+static CandidateMatchMemory CM_L6PHIC23;
+
+static CandidateMatchMemory CM_L6PHIC24;
+
+static AllProjectionMemory<BARREL2S> AP_L6PHIC;
+
+
+//TrackletCalculator_L1L2<TC::E,2,1,5,0,8,0,0x7772,kMaxProc>
+//(bx,
+//innerStubs_TC_L1L2E,
+//outerStubs_TC_L1L2E,
+//stubPairs_TC_L1L2E,
+//&TPAR_L1L2E,
+//0,
+//&TPROJ_L1L2E_L3PHIB,
+//0,
+//0,
+//&TPROJ_L1L2E_L4PHIA,
+//&TPROJ_L1L2E_L4PHIB,
+//&TPROJ_L1L2E_L4PHIC,
+//0,
+//&TPROJ_L1L2E_L5PHIA,
+//&TPROJ_L1L2E_L5PHIB,
+//&TPROJ_L1L2E_L5PHIC,
+//0,
+//&TPROJ_L1L2E_L6PHIA,
+//&TPROJ_L1L2E_L6PHIB,
+//&TPROJ_L1L2E_L6PHIC,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0,
+//0);
+
+ProjectionRouter<BARRELPS,BARREL,9,3,0>
+(bx,
+&TPROJ_L1L2B_L3PHIB,
+&TPROJ_L1L2C_L3PHIB,
+&TPROJ_L1L2D_L3PHIB,
+&TPROJ_L1L2E_L3PHIB,
+&TPROJ_L1L2F_L3PHIB,
+&TPROJ_L1L2G_L3PHIB,
+&TPROJ_L5L6A_L3PHIB,
+&TPROJ_L5L6B_L3PHIB,
+&TPROJ_L5L6C_L3PHIB,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L3PHIB,
+&VMPROJ_L3PHIB9,
+&VMPROJ_L3PHIB10,
+&VMPROJ_L3PHIB11,
+&VMPROJ_L3PHIB12,
+&VMPROJ_L3PHIB13,
+&VMPROJ_L3PHIB14,
+&VMPROJ_L3PHIB15,
+&VMPROJ_L3PHIB16);
+
+/*
+ProjectionRouter<BARREL2S,BARREL,5,4,0>
+(bx,
+&TPROJ_L1L2B_L4PHIA,
+&TPROJ_L1L2C_L4PHIA,
+&TPROJ_L1L2D_L4PHIA,
+&TPROJ_L1L2E_L4PHIA,
+&TPROJ_L5L6A_L4PHIA,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L4PHIA,
+&VMPROJ_L4PHIA1,
+&VMPROJ_L4PHIA2,
+&VMPROJ_L4PHIA3,
+&VMPROJ_L4PHIA4,
+&VMPROJ_L4PHIA5,
+&VMPROJ_L4PHIA6,
+&VMPROJ_L4PHIA7,
+&VMPROJ_L4PHIA8);
+
+ProjectionRouter<BARREL2S,BARREL,10,4,0>
+(bx,
+&TPROJ_L1L2B_L4PHIB,
+&TPROJ_L1L2C_L4PHIB,
+&TPROJ_L1L2D_L4PHIB,
+&TPROJ_L1L2E_L4PHIB,
+&TPROJ_L1L2F_L4PHIB,
+&TPROJ_L1L2G_L4PHIB,
+&TPROJ_L1L2H_L4PHIB,
+&TPROJ_L5L6A_L4PHIB,
+&TPROJ_L5L6B_L4PHIB,
+&TPROJ_L5L6C_L4PHIB,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L4PHIB,
+&VMPROJ_L4PHIB9,
+&VMPROJ_L4PHIB10,
+&VMPROJ_L4PHIB11,
+&VMPROJ_L4PHIB12,
+&VMPROJ_L4PHIB13,
+&VMPROJ_L4PHIB14,
+&VMPROJ_L4PHIB15,
+&VMPROJ_L4PHIB16);
+
+ProjectionRouter<BARREL2S,BARREL,10,4,0>
+(bx,
+&TPROJ_L1L2E_L4PHIC,
+&TPROJ_L1L2F_L4PHIC,
+&TPROJ_L1L2G_L4PHIC,
+&TPROJ_L1L2H_L4PHIC,
+&TPROJ_L1L2I_L4PHIC,
+&TPROJ_L1L2J_L4PHIC,
+&TPROJ_L1L2K_L4PHIC,
+&TPROJ_L5L6B_L4PHIC,
+&TPROJ_L5L6C_L4PHIC,
+&TPROJ_L5L6D_L4PHIC,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L4PHIC,
+&VMPROJ_L4PHIC17,
+&VMPROJ_L4PHIC18,
+&VMPROJ_L4PHIC19,
+&VMPROJ_L4PHIC20,
+&VMPROJ_L4PHIC21,
+&VMPROJ_L4PHIC22,
+&VMPROJ_L4PHIC23,
+&VMPROJ_L4PHIC24);
+
+ProjectionRouter<BARREL2S,BARREL,6,5,0>
+(bx,
+&TPROJ_L1L2B_L5PHIA,
+&TPROJ_L1L2C_L5PHIA,
+&TPROJ_L1L2D_L5PHIA,
+&TPROJ_L1L2E_L5PHIA,
+&TPROJ_L3L4B_L5PHIA,
+&TPROJ_L3L4C_L5PHIA,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L5PHIA,
+&VMPROJ_L5PHIA1,
+&VMPROJ_L5PHIA2,
+&VMPROJ_L5PHIA3,
+&VMPROJ_L5PHIA4,
+&VMPROJ_L5PHIA5,
+&VMPROJ_L5PHIA6,
+&VMPROJ_L5PHIA7,
+&VMPROJ_L5PHIA8);
+
+ProjectionRouter<BARREL2S,BARREL,11,5,0>
+(bx,
+&TPROJ_L1L2B_L5PHIB,
+&TPROJ_L1L2C_L5PHIB,
+&TPROJ_L1L2D_L5PHIB,
+&TPROJ_L1L2E_L5PHIB,
+&TPROJ_L1L2F_L5PHIB,
+&TPROJ_L1L2G_L5PHIB,
+&TPROJ_L1L2H_L5PHIB,
+&TPROJ_L3L4B_L5PHIB,
+&TPROJ_L3L4C_L5PHIB,
+&TPROJ_L3L4D_L5PHIB,
+&TPROJ_L3L4E_L5PHIB,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L5PHIB,
+&VMPROJ_L5PHIB9,
+&VMPROJ_L5PHIB10,
+&VMPROJ_L5PHIB11,
+&VMPROJ_L5PHIB12,
+&VMPROJ_L5PHIB13,
+&VMPROJ_L5PHIB14,
+&VMPROJ_L5PHIB15,
+&VMPROJ_L5PHIB16);
+
+ProjectionRouter<BARREL2S,BARREL,13,5,0>
+(bx,
+&TPROJ_L1L2D_L5PHIC,
+&TPROJ_L1L2E_L5PHIC,
+&TPROJ_L1L2F_L5PHIC,
+&TPROJ_L1L2G_L5PHIC,
+&TPROJ_L1L2H_L5PHIC,
+&TPROJ_L1L2I_L5PHIC,
+&TPROJ_L1L2J_L5PHIC,
+&TPROJ_L1L2K_L5PHIC,
+&TPROJ_L1L2L_L5PHIC,
+&TPROJ_L3L4D_L5PHIC,
+&TPROJ_L3L4E_L5PHIC,
+&TPROJ_L3L4F_L5PHIC,
+&TPROJ_L3L4G_L5PHIC,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L5PHIC,
+&VMPROJ_L5PHIC17,
+&VMPROJ_L5PHIC18,
+&VMPROJ_L5PHIC19,
+&VMPROJ_L5PHIC20,
+&VMPROJ_L5PHIC21,
+&VMPROJ_L5PHIC22,
+&VMPROJ_L5PHIC23,
+&VMPROJ_L5PHIC24);
+
+ProjectionRouter<BARREL2S,BARREL,8,6,0>
+(bx,
+&TPROJ_L1L2B_L6PHIA,
+&TPROJ_L1L2C_L6PHIA,
+&TPROJ_L1L2D_L6PHIA,
+&TPROJ_L1L2E_L6PHIA,
+&TPROJ_L1L2F_L6PHIA,
+&TPROJ_L3L4B_L6PHIA,
+&TPROJ_L3L4C_L6PHIA,
+&TPROJ_L3L4D_L6PHIA,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L6PHIA,
+&VMPROJ_L6PHIA1,
+&VMPROJ_L6PHIA2,
+&VMPROJ_L6PHIA3,
+&VMPROJ_L6PHIA4,
+&VMPROJ_L6PHIA5,
+&VMPROJ_L6PHIA6,
+&VMPROJ_L6PHIA7,
+&VMPROJ_L6PHIA8);
+
+ProjectionRouter<BARREL2S,BARREL,14,6,0>
+(bx,
+&TPROJ_L1L2B_L6PHIB,
+&TPROJ_L1L2C_L6PHIB,
+&TPROJ_L1L2D_L6PHIB,
+&TPROJ_L1L2E_L6PHIB,
+&TPROJ_L1L2F_L6PHIB,
+&TPROJ_L1L2G_L6PHIB,
+&TPROJ_L1L2H_L6PHIB,
+&TPROJ_L1L2I_L6PHIB,
+&TPROJ_L1L2J_L6PHIB,
+&TPROJ_L3L4B_L6PHIB,
+&TPROJ_L3L4C_L6PHIB,
+&TPROJ_L3L4D_L6PHIB,
+&TPROJ_L3L4E_L6PHIB,
+&TPROJ_L3L4F_L6PHIB,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L6PHIB,
+&VMPROJ_L6PHIB9,
+&VMPROJ_L6PHIB10,
+&VMPROJ_L6PHIB11,
+&VMPROJ_L6PHIB12,
+&VMPROJ_L6PHIB13,
+&VMPROJ_L6PHIB14,
+&VMPROJ_L6PHIB15,
+&VMPROJ_L6PHIB16);
+
+ProjectionRouter<BARREL2S,BARREL,17,6,0>
+(bx,
+&TPROJ_L1L2C_L6PHIC,
+&TPROJ_L1L2D_L6PHIC,
+&TPROJ_L1L2E_L6PHIC,
+&TPROJ_L1L2F_L6PHIC,
+&TPROJ_L1L2G_L6PHIC,
+&TPROJ_L1L2H_L6PHIC,
+&TPROJ_L1L2I_L6PHIC,
+&TPROJ_L1L2J_L6PHIC,
+&TPROJ_L1L2K_L6PHIC,
+&TPROJ_L1L2L_L6PHIC,
+&TPROJ_L3L4B_L6PHIC,
+&TPROJ_L3L4C_L6PHIC,
+&TPROJ_L3L4D_L6PHIC,
+&TPROJ_L3L4E_L6PHIC,
+&TPROJ_L3L4F_L6PHIC,
+&TPROJ_L3L4G_L6PHIC,
+&TPROJ_L3L4H_L6PHIC,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+bx_o,
+&AP_L6PHIC,
+&VMPROJ_L6PHIC17,
+&VMPROJ_L6PHIC18,
+&VMPROJ_L6PHIC19,
+&VMPROJ_L6PHIC20,
+&VMPROJ_L6PHIC21,
+&VMPROJ_L6PHIC22,
+&VMPROJ_L6PHIC23,
+&VMPROJ_L6PHIC24);
+*/
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB9n1,
+&VMPROJ_L3PHIB9,
+&CM_L3PHIB9);
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB10n1,
+&VMPROJ_L3PHIB10,
+&CM_L3PHIB10);
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB11n1,
+&VMPROJ_L3PHIB11,
+&CM_L3PHIB11);
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB12n1,
+&VMPROJ_L3PHIB12,
+&CM_L3PHIB12);
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB13n1,
+&VMPROJ_L3PHIB13,
+&CM_L3PHIB13);
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB14n1,
+&VMPROJ_L3PHIB14,
+&CM_L3PHIB14);
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB15n1,
+&VMPROJ_L3PHIB15,
+&CM_L3PHIB15);
+
+MatchEngine<3,BARRELPS>
+(bx,
+&VMSME_L3PHIB16n1,
+&VMPROJ_L3PHIB16,
+&CM_L3PHIB16);
+
+/*
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA1n1,
+&VMPROJ_L4PHIA1,
+&CM_L4PHIA1);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA2n1,
+&VMPROJ_L4PHIA2,
+&CM_L4PHIA2);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA3n1,
+&VMPROJ_L4PHIA3,
+&CM_L4PHIA3);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA4n1,
+&VMPROJ_L4PHIA4,
+&CM_L4PHIA4);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA5n1,
+&VMPROJ_L4PHIA5,
+&CM_L4PHIA5);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA6n1,
+&VMPROJ_L4PHIA6,
+&CM_L4PHIA6);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA7n1,
+&VMPROJ_L4PHIA7,
+&CM_L4PHIA7);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIA8n1,
+&VMPROJ_L4PHIA8,
+&CM_L4PHIA8);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB9n1,
+&VMPROJ_L4PHIB9,
+&CM_L4PHIB9);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB10n1,
+&VMPROJ_L4PHIB10,
+&CM_L4PHIB10);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB11n1,
+&VMPROJ_L4PHIB11,
+&CM_L4PHIB11);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB12n1,
+&VMPROJ_L4PHIB12,
+&CM_L4PHIB12);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB13n1,
+&VMPROJ_L4PHIB13,
+&CM_L4PHIB13);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB14n1,
+&VMPROJ_L4PHIB14,
+&CM_L4PHIB14);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB15n1,
+&VMPROJ_L4PHIB15,
+&CM_L4PHIB15);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIB16n1,
+&VMPROJ_L4PHIB16,
+&CM_L4PHIB16);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC17n1,
+&VMPROJ_L4PHIC17,
+&CM_L4PHIC17);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC18n1,
+&VMPROJ_L4PHIC18,
+&CM_L4PHIC18);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC19n1,
+&VMPROJ_L4PHIC19,
+&CM_L4PHIC19);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC20n1,
+&VMPROJ_L4PHIC20,
+&CM_L4PHIC20);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC21n1,
+&VMPROJ_L4PHIC21,
+&CM_L4PHIC21);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC22n1,
+&VMPROJ_L4PHIC22,
+&CM_L4PHIC22);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC23n1,
+&VMPROJ_L4PHIC23,
+&CM_L4PHIC23);
+
+MatchEngine<4,BARREL2S>
+(bx,
+&VMSME_L4PHIC24n1,
+&VMPROJ_L4PHIC24,
+&CM_L4PHIC24);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA1n1,
+&VMPROJ_L5PHIA1,
+&CM_L5PHIA1);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA2n1,
+&VMPROJ_L5PHIA2,
+&CM_L5PHIA2);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA3n1,
+&VMPROJ_L5PHIA3,
+&CM_L5PHIA3);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA4n1,
+&VMPROJ_L5PHIA4,
+&CM_L5PHIA4);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA5n1,
+&VMPROJ_L5PHIA5,
+&CM_L5PHIA5);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA6n1,
+&VMPROJ_L5PHIA6,
+&CM_L5PHIA6);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA7n1,
+&VMPROJ_L5PHIA7,
+&CM_L5PHIA7);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIA8n1,
+&VMPROJ_L5PHIA8,
+&CM_L5PHIA8);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB9n1,
+&VMPROJ_L5PHIB9,
+&CM_L5PHIB9);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB10n1,
+&VMPROJ_L5PHIB10,
+&CM_L5PHIB10);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB11n1,
+&VMPROJ_L5PHIB11,
+&CM_L5PHIB11);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB12n1,
+&VMPROJ_L5PHIB12,
+&CM_L5PHIB12);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB13n1,
+&VMPROJ_L5PHIB13,
+&CM_L5PHIB13);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB14n1,
+&VMPROJ_L5PHIB14,
+&CM_L5PHIB14);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB15n1,
+&VMPROJ_L5PHIB15,
+&CM_L5PHIB15);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIB16n1,
+&VMPROJ_L5PHIB16,
+&CM_L5PHIB16);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC17n1,
+&VMPROJ_L5PHIC17,
+&CM_L5PHIC17);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC18n1,
+&VMPROJ_L5PHIC18,
+&CM_L5PHIC18);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC19n1,
+&VMPROJ_L5PHIC19,
+&CM_L5PHIC19);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC20n1,
+&VMPROJ_L5PHIC20,
+&CM_L5PHIC20);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC21n1,
+&VMPROJ_L5PHIC21,
+&CM_L5PHIC21);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC22n1,
+&VMPROJ_L5PHIC22,
+&CM_L5PHIC22);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC23n1,
+&VMPROJ_L5PHIC23,
+&CM_L5PHIC23);
+
+MatchEngine<5,BARREL2S>
+(bx,
+&VMSME_L5PHIC24n1,
+&VMPROJ_L5PHIC24,
+&CM_L5PHIC24);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA1n1,
+&VMPROJ_L6PHIA1,
+&CM_L6PHIA1);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA2n1,
+&VMPROJ_L6PHIA2,
+&CM_L6PHIA2);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA3n1,
+&VMPROJ_L6PHIA3,
+&CM_L6PHIA3);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA4n1,
+&VMPROJ_L6PHIA4,
+&CM_L6PHIA4);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA5n1,
+&VMPROJ_L6PHIA5,
+&CM_L6PHIA5);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA6n1,
+&VMPROJ_L6PHIA6,
+&CM_L6PHIA6);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA7n1,
+&VMPROJ_L6PHIA7,
+&CM_L6PHIA7);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIA8n1,
+&VMPROJ_L6PHIA8,
+&CM_L6PHIA8);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB9n1,
+&VMPROJ_L6PHIB9,
+&CM_L6PHIB9);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB10n1,
+&VMPROJ_L6PHIB10,
+&CM_L6PHIB10);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB11n1,
+&VMPROJ_L6PHIB11,
+&CM_L6PHIB11);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB12n1,
+&VMPROJ_L6PHIB12,
+&CM_L6PHIB12);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB13n1,
+&VMPROJ_L6PHIB13,
+&CM_L6PHIB13);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB14n1,
+&VMPROJ_L6PHIB14,
+&CM_L6PHIB14);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB15n1,
+&VMPROJ_L6PHIB15,
+&CM_L6PHIB15);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIB16n1,
+&VMPROJ_L6PHIB16,
+&CM_L6PHIB16);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC17n1,
+&VMPROJ_L6PHIC17,
+&CM_L6PHIC17);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC18n1,
+&VMPROJ_L6PHIC18,
+&CM_L6PHIC18);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC19n1,
+&VMPROJ_L6PHIC19,
+&CM_L6PHIC19);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC20n1,
+&VMPROJ_L6PHIC20,
+&CM_L6PHIC20);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC21n1,
+&VMPROJ_L6PHIC21,
+&CM_L6PHIC21);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC22n1,
+&VMPROJ_L6PHIC22,
+&CM_L6PHIC22);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC23n1,
+&VMPROJ_L6PHIC23,
+&CM_L6PHIC23);
+
+MatchEngine<6,BARREL2S>
+(bx,
+&VMSME_L6PHIC24n1,
+&VMPROJ_L6PHIC24,
+&CM_L6PHIC24);
+*/
+
+MatchCalculator<BARRELPS,BARRELPS,BARREL,3,0,2>
+(bx,
+&CM_L3PHIB9,
+&CM_L3PHIB10,
+&CM_L3PHIB11,
+&CM_L3PHIB12,
+&CM_L3PHIB13,
+&CM_L3PHIB14,
+&CM_L3PHIB15,
+&CM_L3PHIB16,
+&AS_L3PHIBn4,
+&AP_L3PHIB,
+bx_o,
+&FM_L1L2_L3PHIB,
+&FM_L5L6_L3PHIB);
+
+/*
+MatchCalculator<BARREL2S,BARREL2S,BARREL,4,0,2>
+(bx,
+&CM_L4PHIA1,
+&CM_L4PHIA2,
+&CM_L4PHIA3,
+&CM_L4PHIA4,
+&CM_L4PHIA5,
+&CM_L4PHIA6,
+&CM_L4PHIA7,
+&CM_L4PHIA8,
+&AS_L4PHIAn3,
+&AP_L4PHIA,
+bx_o,
+&FM_L1L2_L4PHIA,
+&FM_L5L6_L4PHIA);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,4,0,2>
+(bx,
+&CM_L4PHIB9,
+&CM_L4PHIB10,
+&CM_L4PHIB11,
+&CM_L4PHIB12,
+&CM_L4PHIB13,
+&CM_L4PHIB14,
+&CM_L4PHIB15,
+&CM_L4PHIB16,
+&AS_L4PHIBn5,
+&AP_L4PHIB,
+bx_o,
+&FM_L1L2_L4PHIB,
+&FM_L5L6_L4PHIB);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,4,0,2>
+(bx,
+&CM_L4PHIC17,
+&CM_L4PHIC18,
+&CM_L4PHIC19,
+&CM_L4PHIC20,
+&CM_L4PHIC21,
+&CM_L4PHIC22,
+&CM_L4PHIC23,
+&CM_L4PHIC24,
+&AS_L4PHICn5,
+&AP_L4PHIC,
+bx_o,
+&FM_L1L2_L4PHIC,
+&FM_L5L6_L4PHIC);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,5,0,2>
+(bx,
+&CM_L5PHIA1,
+&CM_L5PHIA2,
+&CM_L5PHIA3,
+&CM_L5PHIA4,
+&CM_L5PHIA5,
+&CM_L5PHIA6,
+&CM_L5PHIA7,
+&CM_L5PHIA8,
+&AS_L5PHIAn2,
+&AP_L5PHIA,
+bx_o,
+&FM_L1L2_L5PHIA,
+&FM_L3L4_L5PHIA);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,5,0,2>
+(bx,
+&CM_L5PHIB9,
+&CM_L5PHIB10,
+&CM_L5PHIB11,
+&CM_L5PHIB12,
+&CM_L5PHIB13,
+&CM_L5PHIB14,
+&CM_L5PHIB15,
+&CM_L5PHIB16,
+&AS_L5PHIBn3,
+&AP_L5PHIB,
+bx_o,
+&FM_L1L2_L5PHIB,
+&FM_L3L4_L5PHIB);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,5,0,2>
+(bx,
+&CM_L5PHIC17,
+&CM_L5PHIC18,
+&CM_L5PHIC19,
+&CM_L5PHIC20,
+&CM_L5PHIC21,
+&CM_L5PHIC22,
+&CM_L5PHIC23,
+&CM_L5PHIC24,
+&AS_L5PHICn3,
+&AP_L5PHIC,
+bx_o,
+&FM_L1L2_L5PHIC,
+&FM_L3L4_L5PHIC);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,6,0,2>
+(bx,
+&CM_L6PHIA1,
+&CM_L6PHIA2,
+&CM_L6PHIA3,
+&CM_L6PHIA4,
+&CM_L6PHIA5,
+&CM_L6PHIA6,
+&CM_L6PHIA7,
+&CM_L6PHIA8,
+&AS_L6PHIAn3,
+&AP_L6PHIA,
+bx_o,
+&FM_L1L2_L6PHIA,
+&FM_L3L4_L6PHIA);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,6,0,2>
+(bx,
+&CM_L6PHIB9,
+&CM_L6PHIB10,
+&CM_L6PHIB11,
+&CM_L6PHIB12,
+&CM_L6PHIB13,
+&CM_L6PHIB14,
+&CM_L6PHIB15,
+&CM_L6PHIB16,
+&AS_L6PHIBn4,
+&AP_L6PHIB,
+bx_o,
+&FM_L1L2_L6PHIB,
+&FM_L3L4_L6PHIB);
+
+MatchCalculator<BARREL2S,BARREL2S,BARREL,6,0,2>
+(bx,
+&CM_L6PHIC17,
+&CM_L6PHIC18,
+&CM_L6PHIC19,
+&CM_L6PHIC20,
+&CM_L6PHIC21,
+&CM_L6PHIC22,
+&CM_L6PHIC23,
+&CM_L6PHIC24,
+&AS_L6PHICn4,
+&AP_L6PHIC,
+bx_o,
+&FM_L1L2_L6PHIC,
+&FM_L3L4_L6PHIC);
+*/
+
+}
