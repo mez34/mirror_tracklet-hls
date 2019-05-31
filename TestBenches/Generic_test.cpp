@@ -8,7 +8,7 @@
 #include "FileReadUtility.hh"
 #include "Constants.hh"
 
-#include "Streamer.hh"
+//#include "Streamer.hh"
 #include "hls_stream.h"
 #include "hls_math.h"
 #include <iostream>

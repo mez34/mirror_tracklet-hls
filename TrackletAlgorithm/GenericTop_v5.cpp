@@ -24,10 +24,11 @@ void GenericTop(
     bx,
     in,
     bx_o_1,
-    &tmp1,
-    &tmp2 
+    out,      // &tmp1
+    &tmp1     // &tmp2
   );
 
+  /*
   TOP_2: Generic<BARREL,1>
   (
     bx_1,
@@ -45,5 +46,6 @@ void GenericTop(
     out,
     &tmp5
   );
-
+  */
+ 
 } 
