@@ -289,7 +289,7 @@ void MatchEngine(const BXType bx,
 // not be pipelined
 // This version has not been updated to be compatible with the new memory formats
 
-void MatchEngine(const ap_uint<3> bx,
+void MatchEngine(const BXType bx,
 		 const VMStubMEMemory* const instubdata,
 		 const VMProjectionMemory* const inprojdata,
 		 CandidateMatchMemory* const outcandmatch){
